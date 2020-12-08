@@ -9,12 +9,16 @@ import Foundation
 
 protocol StoryListWeblinkViewModeling: class {
 
+    var id: String { get }
+
 }
 
 final class StoryListWeblinkViewModel: StoryListWeblinkViewModeling {
 
-    init() {
+    let id: String
 
+    init(id: String) {
+        self.id = id
     }
 
 }

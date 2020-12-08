@@ -1,6 +1,6 @@
 import Foundation
 
-public enum StoryContent {
+public enum StoryContent: Equatable {
 
     case paragraph(StoryParagraph)
     case image(StoryImage)

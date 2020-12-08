@@ -11,7 +11,7 @@ import Foundation
 extension StoryListWeblinkViewModel {
 
     convenience init(weblink: StoryCollectionWeblink) {
-        self.init()
+        self.init(id: weblink.id)
     }
 
 }

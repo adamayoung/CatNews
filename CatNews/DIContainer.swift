@@ -34,7 +34,7 @@ extension DIContainer {
         StoryDetailViewController(viewModel: resolve(storyID: storyID))
     }
 
-    func resolve(storyID: String) -> StoryDetailViewModeling {
+    private func resolve(storyID: String) -> StoryDetailViewModeling {
         StoryDetailViewModel(storyID: storyID, newsStore: resolve())
     }
 

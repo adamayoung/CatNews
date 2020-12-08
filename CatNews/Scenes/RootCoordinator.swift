@@ -9,9 +9,7 @@ import CatNewsCore
 import os.log
 import UIKit
 
-protocol RootCoordinating: Coordinating {
-
-}
+protocol RootCoordinating: Coordinating { }
 
 final class RootCoordinator: RootCoordinating {
 

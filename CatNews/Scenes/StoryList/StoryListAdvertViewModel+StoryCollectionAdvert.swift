@@ -11,7 +11,7 @@ import Foundation
 extension StoryListAdvertViewModel {
 
     convenience init(advert: StoryCollectionAdvert) {
-        self.init()
+        self.init(url: advert.url)
     }
 
 }

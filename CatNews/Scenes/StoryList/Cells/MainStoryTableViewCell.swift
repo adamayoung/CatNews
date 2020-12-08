@@ -21,7 +21,7 @@ final class MainStoryTableViewCell: UITableViewCell {
                     return nil
                 }
 
-                return RelativeDateTimeFormatter.named.string(for: date)
+                return RelativeDateTimeFormatter.named.localizedString(for: date, relativeTo: Date())
             }()
         }
     }

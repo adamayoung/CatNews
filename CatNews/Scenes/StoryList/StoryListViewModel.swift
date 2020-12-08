@@ -11,8 +11,7 @@ import os.log
 
 protocol StoryListViewModeling {
 
-    var isLoading: Bool { get }
-    var title: String { get }
+    var title: String? { get }
     var items: [StoryListItemViewModel]? { get }
     var fetchError: Error? { get }
 
@@ -26,8 +25,7 @@ protocol StoryListViewModeling {
 
 final class StoryListViewModel: StoryListViewModeling {
 
-    private(set) var isLoading = false
-    private(set) var title = ""
+    private(set) var title: String?
     private(set) var items: [StoryListItemViewModel]?
 
     private(set) var fetchError: Error?

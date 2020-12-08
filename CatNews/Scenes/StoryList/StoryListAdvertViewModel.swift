@@ -9,12 +9,16 @@ import Foundation
 
 protocol StoryListAdvertViewModeling: class {
 
+    var url: URL { get }
+
 }
 
 final class StoryListAdvertViewModel: StoryListAdvertViewModeling {
 
-    init() {
+    let url: URL
 
+    init(url: URL) {
+        self.url = url
     }
 
 }

@@ -12,7 +12,6 @@ import os.log
 protocol StoryDetailViewModeling {
 
     var storyID: String { get }
-    var isLoading: Bool { get }
     var story: StoryViewModeling? { get }
     var fetchError: Error? { get }
 
@@ -23,7 +22,6 @@ protocol StoryDetailViewModeling {
 final class StoryDetailViewModel: StoryDetailViewModeling {
 
     let storyID: String
-    private(set) var isLoading = false
     private(set) var story: StoryViewModeling?
     private(set) var fetchError: Error?
 
@@ -37,7 +35,6 @@ final class StoryDetailViewModel: StoryDetailViewModeling {
     func fetch(completion: @escaping () -> Void) {
         os_log("Fetching story %@...", log: .app, storyID)
 
-        isLoading = true
         newsStore.fetchStory(withID: storyID) { [weak self] result in
             guard let self = self else {
                 return
@@ -49,13 +46,11 @@ final class StoryDetailViewModel: StoryDetailViewModeling {
                 }
             }
 
-            self.isLoading = false
             os_log("Fetched story %@", log: .app, self.storyID)
 
             do {
                 guard let story = try result.get() else {
-                    self.fetchError = StoryNotFoundError()
-                    return
+                    throw StoryNotFoundError()
                 }
 
                 self.story = StoryViewModel(story: story)
@@ -69,8 +64,6 @@ final class StoryDetailViewModel: StoryDetailViewModeling {
 
 extension StoryDetailViewModel {
 
-    struct StoryNotFoundError: Error {
-
-    }
+    struct StoryNotFoundError: Error { }
 
 }
