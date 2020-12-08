@@ -129,7 +129,7 @@ extension StoryListViewController {
             return UITableView.automaticDimension
 
         case .advert:
-            return tableView.frame.width * (198 / 940)
+            return tableView.frame.width * 0.3
         }
     }
 
