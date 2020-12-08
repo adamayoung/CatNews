@@ -13,7 +13,7 @@ extension StoryListStoryViewModel {
     convenience init(story: StoryCollectionStory) {
         self.init(id: story.id, headline: story.headline, teaserText: story.teaserText,
                   imageURL: story.teaserImage.links.url.href,
-                  imageAccessibilityText: story.teaserImage.accessibilityText)
+                  imageAccessibilityText: story.teaserImage.accessibilityText, publishedDate: story.creationDate)
     }
 
 }

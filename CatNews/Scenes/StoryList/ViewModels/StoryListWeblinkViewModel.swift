@@ -14,7 +14,7 @@ protocol StoryListWeblinkViewModeling: class {
 final class StoryListWeblinkViewModel: StoryListWeblinkViewModeling {
 
     init() {
-        
+
     }
 
 }

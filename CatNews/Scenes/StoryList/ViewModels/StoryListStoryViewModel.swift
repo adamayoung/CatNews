@@ -14,6 +14,7 @@ protocol StoryListStoryViewModeling: class {
     var teaserText: String { get }
     var imageURL: URL { get }
     var imageAccessibilityText: String { get }
+    var publishedDate: Date { get }
 
 }
 
@@ -24,14 +25,16 @@ final class StoryListStoryViewModel: StoryListStoryViewModeling {
     let teaserText: String
     let imageURL: URL
     let imageAccessibilityText: String
+    let publishedDate: Date
 
-    init(id: String, headline: String, teaserText: String, imageURL: URL, imageAccessibilityText: String) {
+    init(id: String, headline: String, teaserText: String, imageURL: URL, imageAccessibilityText: String,
+         publishedDate: Date) {
         self.id = id
         self.headline = headline
         self.teaserText = teaserText
         self.imageURL = imageURL
         self.imageAccessibilityText = imageAccessibilityText
+        self.publishedDate = publishedDate
     }
-
 
 }

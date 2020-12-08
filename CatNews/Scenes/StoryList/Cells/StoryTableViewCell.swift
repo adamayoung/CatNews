@@ -5,6 +5,7 @@
 //  Created by Adam Young on 07/12/2020.
 //
 
+import SDWebImage
 import UIKit
 
 final class StoryTableViewCell: UITableViewCell {
@@ -15,21 +16,39 @@ final class StoryTableViewCell: UITableViewCell {
             storyImageView.accessibilityLabel = viewModel?.imageAccessibilityText
             headlineLabel.text = viewModel?.headline
             teaserTextLabel.text = viewModel?.teaserText
+            dateLabel.text = {
+                guard let date = viewModel?.publishedDate else {
+                    return nil
+                }
+
+                return RelativeDateTimeFormatter.named.string(for: date)
+            }()
         }
     }
 
     private lazy var storyImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = UIColor.secondarySystemFill
+        imageView.backgroundColor = .secondarySystemFill
         imageView.clipsToBounds = true
+        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
         return imageView
     }()
+
+    private lazy var headlineContainer = UIView()
 
     private lazy var headlineLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         label.numberOfLines = 0
+        return label
+    }()
+
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .gray
+        label.textAlignment = .right
         return label
     }()
 
@@ -52,14 +71,31 @@ final class StoryTableViewCell: UITableViewCell {
             storyImageView.widthAnchor.constraint(equalToConstant: 50)
         ])
 
-        contentView.addSubview(headlineLabel)
-        headlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(headlineContainer)
+        headlineContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
-            headlineLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-            headlineLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: storyImageView.trailingAnchor,
+            headlineContainer.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+            headlineContainer.leadingAnchor.constraint(equalToSystemSpacingAfter: storyImageView.trailingAnchor,
                                                    multiplier: 1),
-            headlineLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
+            headlineContainer.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
         ])
+
+        headlineContainer.addSubview(headlineLabel)
+        headlineLabel.translatesAutoresizingMaskIntoConstraints = false
+        headlineContainer.addConstraints([
+            headlineLabel.topAnchor.constraint(equalTo: headlineContainer.topAnchor),
+            headlineLabel.leadingAnchor.constraint(equalTo: headlineContainer.leadingAnchor),
+            headlineLabel.bottomAnchor.constraint(equalTo: headlineContainer.bottomAnchor)
+        ])
+
+        headlineContainer.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        headlineContainer.addConstraints([
+            dateLabel.topAnchor.constraint(equalTo: headlineContainer.topAnchor),
+            dateLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: headlineLabel.trailingAnchor, multiplier: 1),
+            dateLabel.trailingAnchor.constraint(equalTo: headlineContainer.trailingAnchor)
+        ])
+        dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
         contentView.addSubview(teaserTextLabel)
         teaserTextLabel.translatesAutoresizingMaskIntoConstraints = false

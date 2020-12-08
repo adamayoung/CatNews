@@ -11,9 +11,16 @@ opt_in_rules:
 type_name:
   max_length: 60
 
+line_length:
+  ignores_urls: true
+  ignores_comments: true
+  ignores_interpolated_strings: true
+
 identifier_name:
   min_length:
     error: 4
   max_length: 60
   excluded:
     - app
+    - id
+    - url

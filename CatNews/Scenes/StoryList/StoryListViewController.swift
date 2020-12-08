@@ -37,6 +37,10 @@ final class StoryListViewController: UITableViewController {
         tableView.register(StoryTableViewCell.self, forCellReuseIdentifier: "StoryCell")
         tableView.register(WeblinkTableViewCell.self, forCellReuseIdentifier: "WeblinkCell")
         tableView.register(AdvertTableViewCell.self, forCellReuseIdentifier: "AdvertCell")
+
+        tableView.separatorColor = .clear
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 600
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +56,7 @@ final class StoryListViewController: UITableViewController {
 extension StoryListViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.items == nil ? 0 : 1
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,26 +68,44 @@ extension StoryListViewController {
         switch item {
         case .story(let viewModel):
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "MainStoryCell",
-                                                         for: indexPath) as! MainStoryTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "MainStoryCell",
+                                                               for: indexPath) as? MainStoryTableViewCell
+                else {
+                    fatalError()
+                }
+
                 cell.viewModel = viewModel
+                cell.setNeedsUpdateConstraints()
+                cell.updateConstraints()
                 return cell
             }
 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell",
-                                                     for: indexPath) as! StoryTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "StoryCell",
+                                                           for: indexPath) as? StoryTableViewCell
+            else {
+                fatalError()
+            }
+
             cell.viewModel = viewModel
             return cell
 
         case .weblink(let viewModel):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "WeblinkCell",
-                                                     for: indexPath) as! WeblinkTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeblinkCell",
+                                                           for: indexPath) as? WeblinkTableViewCell
+            else {
+                fatalError()
+            }
+
             cell.viewModel = viewModel
             return cell
 
         case .advert(let viewModel):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AdvertCell",
-                                                     for: indexPath) as! AdvertTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AdvertCell",
+                                                           for: indexPath) as? AdvertTableViewCell
+            else {
+                fatalError()
+            }
+
             cell.viewModel = viewModel
             return cell
         }
@@ -102,10 +124,14 @@ extension StoryListViewController {
 extension StoryListViewController {
 
     private func fetchStories() {
+        isLoading(true)
+
         viewModel.fetch { [weak self] in
             guard let self = self else {
                 return
             }
+
+            self.isLoading(false)
 
             if let error = self.viewModel.fetchError {
                 self.displayError(error)
@@ -116,14 +142,34 @@ extension StoryListViewController {
         }
     }
 
-    private func updateUI() {
-        self.title = self.viewModel.title
+    private func isLoading(_ loading: Bool) {
+        if !loading {
+            tableView.separatorColor = .separator
+            tableView.backgroundView = nil
+            return
+        }
 
+        if viewModel.items == nil {
+            tableView.separatorColor = .clear
+            tableView.backgroundView = LoadingView(message: NSLocalizedString("Loading", comment: "Loading"))
+        }
+    }
+
+    private func updateUI() {
+        tableView.separatorColor = .separator
+        self.title = self.viewModel.title
         tableView.reloadData()
     }
 
     private func displayError(_ error: Error) {
-        print("Error: \(error.localizedDescription)")
+        let view = ErrorView(
+            title: NSLocalizedString("What a CATastrophe", comment: "What a CATastrophe"),
+            message: NSLocalizedString("There's been a problem fetching the latest news articles",
+                                       comment: "There's been a problem fetching the latest news articles"),
+            retryHandler: fetchStories
+        )
+        tableView.backgroundView = view
+        tableView.separatorColor = .clear
     }
 
 }

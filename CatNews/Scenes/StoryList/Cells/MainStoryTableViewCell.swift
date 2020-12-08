@@ -16,6 +16,13 @@ final class MainStoryTableViewCell: UITableViewCell {
             storyImageView.accessibilityLabel = viewModel?.imageAccessibilityText
             headlineLabel.text = viewModel?.headline
             teaserTextLabel.text = viewModel?.teaserText
+            dateLabel.text = {
+                guard let date = viewModel?.publishedDate else {
+                    return nil
+                }
+
+                return RelativeDateTimeFormatter.named.string(for: date)
+            }()
         }
     }
 
@@ -24,12 +31,14 @@ final class MainStoryTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = UIColor.secondarySystemFill
         imageView.clipsToBounds = true
+        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
+        imageView.sd_imageTransition = SDWebImageTransition.fade
         return imageView
     }()
 
     private lazy var headlineLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .headline)
+        label.font = .preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
         return label
     }()
@@ -38,6 +47,13 @@ final class MainStoryTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
         label.numberOfLines = 3
+        return label
+    }()
+
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        label.font = .preferredFont(forTextStyle: .body)
+        label.textColor = .gray
         return label
     }()
 
@@ -66,8 +82,16 @@ final class MainStoryTableViewCell: UITableViewCell {
         contentView.addConstraints([
             teaserTextLabel.topAnchor.constraint(equalToSystemSpacingBelow: headlineLabel.bottomAnchor, multiplier: 1),
             teaserTextLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            teaserTextLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            teaserTextLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+            teaserTextLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
+        ])
+
+        contentView.addSubview(dateLabel)
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addConstraints([
+            dateLabel.topAnchor.constraint(equalToSystemSpacingBelow: teaserTextLabel.bottomAnchor, multiplier: 1),
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
     }
 

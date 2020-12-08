@@ -12,29 +12,66 @@ final class StoryDetailViewController: UIViewController {
 
     private let viewModel: StoryDetailViewModeling
 
+    private lazy var storyView = StoryView()
+    private lazy var loadingView = LoadingView(message: "Loading story")
+
     init(viewModel: StoryDetailViewModeling) {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func loadView() {
+        view = UIScrollView()
+        view.backgroundColor = .systemBackground
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        guard let view = self.view as? UIScrollView else {
+            return
+        }
+
+        view.addSubview(storyView)
+        storyView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            storyView.topAnchor.constraint(equalTo: view.topAnchor),
+            storyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            storyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            storyView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            storyView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        ])
+
+        isLoading(true)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        fetchStory()
+    }
+
+}
+
+extension StoryDetailViewController {
+
+    private func fetchStory() {
+        guard viewModel.story == nil else {
+            return
+        }
+
+        isLoading(true)
         viewModel.fetch { [weak self] in
             guard let self = self else {
                 return
             }
+
+            self.isLoading(false)
 
             if let story = self.viewModel.story {
                 self.updateUI(with: story)
@@ -42,12 +79,32 @@ final class StoryDetailViewController: UIViewController {
         }
     }
 
-}
+    private func updateUI(with storyViewModel: StoryViewModeling) {
+        title = storyViewModel.headline
+        storyView.viewModel = storyViewModel
+    }
 
-extension StoryDetailViewController {
+    private func isLoading(_ loading: Bool) {
+        if !loading {
+            if loadingView.superview != nil {
+                loadingView.removeFromSuperview()
+            }
 
-    private func updateUI(with story: Story) {
+            return
+        }
 
+        guard loadingView.superview == nil else {
+            return
+        }
+
+        view.addSubview(loadingView)
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            loadingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 
 }
