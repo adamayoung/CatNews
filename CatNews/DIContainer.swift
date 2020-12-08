@@ -43,7 +43,7 @@ extension DIContainer {
 extension DIContainer {
 
     private func resolve() -> NewsStore {
-        NewsMockStore()
+        NewsHTTPStore.shared
     }
 
 }

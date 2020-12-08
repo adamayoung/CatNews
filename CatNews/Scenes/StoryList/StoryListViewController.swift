@@ -119,6 +119,20 @@ extension StoryListViewController {
         delegate?.viewController(self, wantsToViewStory: storyID)
     }
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let item = viewModel.item(forIndexPath: indexPath)
+        switch item {
+        case .story:
+            return UITableView.automaticDimension
+
+        case .weblink:
+            return UITableView.automaticDimension
+
+        case .advert:
+            return tableView.frame.width * (198 / 940)
+        }
+    }
+
 }
 
 extension StoryListViewController {

@@ -5,33 +5,45 @@
 //  Created by Adam Young on 08/12/2020.
 //
 
+import SDWebImage
 import UIKit
 
 final class AdvertTableViewCell: UITableViewCell {
 
     var viewModel: StoryListAdvertViewModeling? {
         didSet {
-
+            advertImageView.sd_setImage(with: viewModel?.url)
         }
     }
 
+    private lazy var advertImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = .secondarySystemFill
+        imageView.clipsToBounds = true
+        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
+        return imageView
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        contentView.addSubview(advertImageView)
+        advertImageView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addConstraints([
+            advertImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            advertImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            advertImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            advertImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }
