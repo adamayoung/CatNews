@@ -9,30 +9,68 @@ import XCTest
 
 class CatNewsUITests: XCTestCase {
 
+    var app: XCUIApplication!
+
     override func setUpWithError() throws {
+        try super.setUpWithError()
+
         continueAfterFailure = false
-    }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+        app = XCUIApplication()
+        app.launchArguments = [
+            "SKIP_ANIMATIONS",
+            "UI_TEST"
+        ]
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
         app.launch()
-
-        // Use recording to get started writin8g UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 
-    func testLaunchPerformance() throws {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTApplicationLaunchMetric()]) {
-                XCUIApplication().launch()
-            }
+    func testLoadsStories() throws {
+        let table = app.tables["Stories"]
+        XCTAssertTrue(table.exists)
+        XCTAssertEqual(table.cells.count, 4)
+    }
+
+    func testNavigatesStory1() throws {
+        let cell = app.tables["Stories"].cells["Headline 1"]
+        XCTAssertTrue(cell.exists)
+        cell.tap()
+
+        let storyView = app.scrollViews["Story"]
+        guard storyView.waitForExistence(timeout: 5) else {
+            XCTFail("Story view didn't load")
+                return
         }
+
+        let headlineLabel = storyView.otherElements.staticTexts["Headline 1"]
+        XCTAssertTrue(headlineLabel.exists)
+    }
+
+    func testNavigatesWeblink2() throws {
+        let cell = app.tables["Stories"].cells["Weblink 2"]
+        XCTAssertTrue(cell.exists)
+        cell.tap()
+
+        let webView = app.otherElements["Web view - https://www.sky.com"]
+        guard webView.waitForExistence(timeout: 5) else {
+            XCTFail("Web view didn't load")
+                return
+        }
+    }
+
+    func testNavigatesStory3() throws {
+        let cell = app.tables["Stories"].cells["Headline 3"]
+        XCTAssertTrue(cell.exists)
+        cell.tap()
+
+        let storyView = app.scrollViews["Story"]
+        guard storyView.waitForExistence(timeout: 5) else {
+            XCTFail("Story view didn't load")
+                return
+        }
+
+        let headlineLabel = storyView.otherElements.staticTexts["Headline 3"]
+        XCTAssertTrue(headlineLabel.exists)
     }
 
 }

@@ -70,6 +70,7 @@ final class StoryHeaderView: UIView {
         heroImageView.sd_setImage(with: viewModel.heroImageURL)
         heroImageView.accessibilityLabel = viewModel.heroImageAccessibilityText
         headlineLabel.text = viewModel.headlineText
+        headlineLabel.accessibilityLabel = viewModel.headlineText
     }
 
     required init?(coder: NSCoder) {

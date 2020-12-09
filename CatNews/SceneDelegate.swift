@@ -11,7 +11,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-    private let diContainer = DIContainer()
+    private lazy var diContainer: DIContainer = {
+        let arguments = ProcessInfo.processInfo.arguments
+        let isUITest = arguments.contains("UI_TEST")
+        if isUITest {
+            return MockDIContainer()
+        }
+
+        return DIContainer()
+    }()
+
     private var rootCoordinator: RootCoordinating?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession,

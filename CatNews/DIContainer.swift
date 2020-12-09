@@ -8,41 +8,31 @@
 import CatNewsCore
 import UIKit
 
-struct DIContainer {
+class DIContainer {
+
+    init() { }
 
     func resolve(navigationController: UINavigationController) -> RootCoordinating {
         RootCoordinator(navigationController: navigationController, diContainer: self)
     }
 
-}
-
-extension DIContainer {
-
     func resolve() -> StoryListViewController {
         StoryListViewController(viewModel: resolve())
     }
 
-    private func resolve() -> StoryListViewModeling {
+    func resolve() -> StoryListViewModeling {
         StoryListViewModel(newsStore: resolve())
     }
-
-}
-
-extension DIContainer {
 
     func resolve(storyID: String) -> StoryDetailViewController {
         StoryDetailViewController(viewModel: resolve(storyID: storyID))
     }
 
-    private func resolve(storyID: String) -> StoryDetailViewModeling {
+    func resolve(storyID: String) -> StoryDetailViewModeling {
         StoryDetailViewModel(storyID: storyID, newsStore: resolve())
     }
 
-}
-
-extension DIContainer {
-
-    private func resolve() -> NewsStore {
+    func resolve() -> NewsStore {
         NewsHTTPStore.shared
     }
 

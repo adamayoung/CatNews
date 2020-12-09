@@ -35,6 +35,7 @@ final class StoryListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.accessibilityLabel = "Stories"
         tableView.register(MainStoryTableViewCell.self, forCellReuseIdentifier: "MainStoryCell")
         tableView.register(StoryTableViewCell.self, forCellReuseIdentifier: "StoryCell")
         tableView.register(WeblinkTableViewCell.self, forCellReuseIdentifier: "WeblinkCell")

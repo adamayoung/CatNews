@@ -12,6 +12,7 @@ final class StoryTableViewCell: UITableViewCell {
 
     var viewModel: StoryListStoryViewModeling? {
         didSet {
+            accessibilityLabel = "\(viewModel?.headline ?? "")"
             storyImageView.sd_setImage(with: viewModel?.imageURL)
             storyImageView.accessibilityLabel = viewModel?.imageAccessibilityText
             headlineLabel.text = viewModel?.headline

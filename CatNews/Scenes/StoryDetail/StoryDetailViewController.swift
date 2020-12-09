@@ -27,6 +27,7 @@ final class StoryDetailViewController: UIViewController {
 
     override func loadView() {
         view = UIScrollView()
+        view.accessibilityLabel = "Story"
         view.backgroundColor = .systemBackground
     }
 

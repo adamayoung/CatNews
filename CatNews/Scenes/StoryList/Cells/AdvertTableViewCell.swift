@@ -12,6 +12,7 @@ final class AdvertTableViewCell: UITableViewCell {
 
     var viewModel: StoryListAdvertViewModeling? {
         didSet {
+            accessibilityLabel = "Advert"
             advertImageView.sd_setImage(with: viewModel?.url)
         }
     }

@@ -12,6 +12,7 @@ final class WeblinkTableViewCell: UITableViewCell {
 
     var viewModel: StoryListWeblinkViewModeling? {
         didSet {
+            accessibilityLabel = "\(viewModel?.headline ?? "")"
             weblinkImageView.sd_setImage(with: viewModel?.imageURL)
             weblinkImageView.accessibilityLabel = viewModel?.imageAccessibilityText
             headlineLabel.text = viewModel?.headline
