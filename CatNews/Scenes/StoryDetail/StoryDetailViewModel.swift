@@ -46,8 +46,6 @@ final class StoryDetailViewModel: StoryDetailViewModeling {
                 }
             }
 
-
-
             do {
                 guard let story = try result.get() else {
                     os_log("Story %@ not found", log: .app, type: .error, self.storyID)

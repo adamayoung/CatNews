@@ -28,7 +28,10 @@ let package = Package(
         ),
         .testTarget(
             name: "CatNewsCoreTests",
-            dependencies: ["CatNewsCore"]
+            dependencies: ["CatNewsCore"],
+            resources: [
+                .copy("MockData")
+            ]
         )
     ]
 )

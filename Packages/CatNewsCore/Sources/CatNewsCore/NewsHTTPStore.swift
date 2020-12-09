@@ -6,7 +6,7 @@ public final class NewsHTTPStore: NewsStore {
 
     private let client: HTTPClient
 
-    private init(client: HTTPClient = HTTPMockClient()) {
+    init(client: HTTPClient = HTTPMockClient()) {
         self.client = client
     }
 

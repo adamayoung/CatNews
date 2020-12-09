@@ -1,6 +1,6 @@
 import Foundation
 
-enum Endpoint {
+enum Endpoint: Equatable {
 
     case newsList
     case story(storyID: String)
