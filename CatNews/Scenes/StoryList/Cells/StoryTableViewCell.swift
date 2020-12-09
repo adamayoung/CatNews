@@ -31,7 +31,6 @@ final class StoryTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .secondarySystemFill
         imageView.clipsToBounds = true
-        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
         return imageView
     }()
 

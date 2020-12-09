@@ -15,7 +15,6 @@ final class StoryImageView: UIView {
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .secondarySystemFill
-        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
         imageView.sd_imageTransition = SDWebImageTransition.fade
         return imageView
     }()

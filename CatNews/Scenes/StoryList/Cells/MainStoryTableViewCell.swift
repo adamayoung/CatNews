@@ -31,7 +31,6 @@ final class MainStoryTableViewCell: UITableViewCell {
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = UIColor.secondarySystemFill
         imageView.clipsToBounds = true
-        imageView.sd_imageIndicator = SDWebImageProgressIndicator.default
         imageView.sd_imageTransition = SDWebImageTransition.fade
         return imageView
     }()
