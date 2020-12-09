@@ -46,8 +46,8 @@ final class StoryTableViewCell: UITableViewCell {
 
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .systemGray
         label.textAlignment = .right
         return label
     }()
@@ -62,13 +62,17 @@ final class StoryTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        contentView.layoutMargins.top *= 2
+        contentView.layoutMargins.bottom *= 2
+
         contentView.addSubview(storyImageView)
         storyImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
             storyImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             storyImageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             storyImageView.heightAnchor.constraint(equalToConstant: 50),
-            storyImageView.widthAnchor.constraint(equalToConstant: 50)
+            storyImageView.widthAnchor.constraint(equalToConstant: 50),
+            storyImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
 
         contentView.addSubview(headlineContainer)
@@ -93,7 +97,8 @@ final class StoryTableViewCell: UITableViewCell {
         headlineContainer.addConstraints([
             dateLabel.topAnchor.constraint(equalTo: headlineContainer.topAnchor),
             dateLabel.leadingAnchor.constraint(equalToSystemSpacingAfter: headlineLabel.trailingAnchor, multiplier: 1),
-            dateLabel.trailingAnchor.constraint(equalTo: headlineContainer.trailingAnchor)
+            dateLabel.trailingAnchor.constraint(equalTo: headlineContainer.trailingAnchor),
+            dateLabel.bottomAnchor.constraint(lessThanOrEqualTo: headlineContainer.bottomAnchor)
         ])
         dateLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 

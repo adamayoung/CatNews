@@ -6,7 +6,3 @@ enum Endpoint {
     case story(storyID: String)
 
 }
-
-extension Endpoint {
-
-}

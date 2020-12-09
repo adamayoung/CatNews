@@ -53,12 +53,15 @@ final class MainStoryTableViewCell: UITableViewCell {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
+        label.textColor = .systemGray
         return label
     }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        contentView.layoutMargins.top *= 2
+        contentView.layoutMargins.bottom *= 2
 
         contentView.addSubview(storyImageView)
         storyImageView.translatesAutoresizingMaskIntoConstraints = false

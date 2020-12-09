@@ -34,4 +34,5 @@ class CatNewsUITests: XCTestCase {
             }
         }
     }
+
 }

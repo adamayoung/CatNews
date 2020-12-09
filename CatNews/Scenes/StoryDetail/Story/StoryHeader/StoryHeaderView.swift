@@ -23,7 +23,7 @@ final class StoryHeaderView: UIView {
     private lazy var headlingLabelBackground: UIView = {
         let view = UIView()
         let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.clear.cgColor, UIColor.gray.cgColor]
+        gradient.colors = [UIColor.clear.cgColor, UIColor.systemGray.cgColor]
         view.layer.insertSublayer(gradient, at: 0)
         return view
     }()

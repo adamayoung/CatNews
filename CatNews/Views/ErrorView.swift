@@ -22,7 +22,7 @@ final class ErrorView: UIView {
     private lazy var messageLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
+        label.textColor = .systemGray
         label.textAlignment = .center
         label.numberOfLines = 0
         return label

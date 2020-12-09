@@ -46,8 +46,8 @@ final class WeblinkTableViewCell: UITableViewCell {
 
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .body)
-        label.textColor = .gray
+        label.font = .preferredFont(forTextStyle: .caption1)
+        label.textColor = .systemGray
         label.textAlignment = .right
         return label
     }()
@@ -62,13 +62,17 @@ final class WeblinkTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
+        contentView.layoutMargins.top *= 2
+        contentView.layoutMargins.bottom *= 2
+
         contentView.addSubview(weblinkImageView)
         weblinkImageView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addConstraints([
             weblinkImageView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
             weblinkImageView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
             weblinkImageView.heightAnchor.constraint(equalToConstant: 50),
-            weblinkImageView.widthAnchor.constraint(equalToConstant: 50)
+            weblinkImageView.widthAnchor.constraint(equalToConstant: 50),
+            weblinkImageView.bottomAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.bottomAnchor)
         ])
 
         contentView.addSubview(headlineContainer)

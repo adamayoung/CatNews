@@ -16,10 +16,6 @@ public final class NewsHTTPStore: NewsStore {
                 completion(result)
             }
         }
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            completion(.success(storyCollection))
-//        }
     }
 
     public func fetchStory(withID id: String, completion: @escaping (Result<Story?, Error>) -> Void) {
@@ -37,11 +33,6 @@ public final class NewsHTTPStore: NewsStore {
                 }
             }
         }
-
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//            let story = stories[id] ?? stories["1"]
-//            completion(.success(story))
-//        }
     }
 
 }

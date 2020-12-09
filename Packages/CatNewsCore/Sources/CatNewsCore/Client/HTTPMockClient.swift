@@ -11,7 +11,9 @@ struct HTTPMockClient: HTTPClient {
     }
 
     func get<Response: Decodable>(_ endpoint: Endpoint, completion: @escaping (Result<Response, Error>) -> Void) {
-        urlSession.dataTask(with: endpoint.url) { (data, _, error) in
+        let request = URLRequest(url: endpoint.url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
+
+        urlSession.dataTask(with: request) { (data, _, error) in
             if let error = error {
                 completion(.failure(error))
                 return

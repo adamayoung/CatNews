@@ -12,6 +12,8 @@ protocol StoryListViewControllerDelegate: class {
 
     func viewController(_ viewController: StoryListViewController, wantsToViewStory storyID: String)
 
+    func viewController(_ viewController: StoryListViewController, wantsToViewWeblink url: URL)
+
 }
 
 final class StoryListViewController: UITableViewController {
@@ -112,24 +114,27 @@ extension StoryListViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let storyID = viewModel.storyID(forIndexPath: indexPath) else {
+        let item = viewModel.item(forIndexPath: indexPath)
+        switch item {
+        case .story(let viewModel):
+            delegate?.viewController(self, wantsToViewStory: viewModel.id)
+
+        case .weblink(let viewModel):
+            delegate?.viewController(self, wantsToViewWeblink: viewModel.url)
+
+        default:
             return
         }
-
-        delegate?.viewController(self, wantsToViewStory: storyID)
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let item = viewModel.item(forIndexPath: indexPath)
         switch item {
-        case .story:
-            return UITableView.automaticDimension
-
-        case .weblink:
-            return UITableView.automaticDimension
-
         case .advert:
             return tableView.frame.width * 0.3
+
+        default:
+            return UITableView.automaticDimension
         }
     }
 
@@ -172,6 +177,7 @@ extension StoryListViewController {
     private func updateUI() {
         tableView.separatorColor = .separator
         self.title = self.viewModel.title
+        tableView.invalidateIntrinsicContentSize()
         tableView.reloadData()
     }
 
@@ -184,6 +190,23 @@ extension StoryListViewController {
         )
         tableView.backgroundView = view
         tableView.separatorColor = .clear
+    }
+
+}
+
+extension StoryListViewController {
+
+    private func height(forCell cell: UITableViewCell) -> CGFloat {
+        cell.frame.size.width = tableView.bounds.width
+        cell.setNeedsUpdateConstraints()
+        cell.setNeedsLayout()
+        cell.updateConstraintsIfNeeded()
+        cell.layoutIfNeeded()
+
+        var size = cell.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        size.width = tableView.bounds.width
+
+        return size.height
     }
 
 }

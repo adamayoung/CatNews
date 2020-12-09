@@ -7,6 +7,7 @@
 
 import CatNewsCore
 import os.log
+import SafariServices
 import UIKit
 
 protocol RootCoordinating: Coordinating { }
@@ -36,6 +37,12 @@ extension RootCoordinator: StoryListViewControllerDelegate {
         os_log("Viewing story %@", log: .app, storyID)
         let viewController: StoryDetailViewController = diContainer.resolve(storyID: storyID)
         navigationController.pushViewController(viewController, animated: true)
+    }
+
+    func viewController(_ viewController: StoryListViewController, wantsToViewWeblink url: URL) {
+        os_log("Viewing weblink %@", log: .app, url.absoluteString)
+        let viewController = SFSafariViewController(url: url)
+        navigationController.present(viewController, animated: true, completion: nil)
     }
 
 }
