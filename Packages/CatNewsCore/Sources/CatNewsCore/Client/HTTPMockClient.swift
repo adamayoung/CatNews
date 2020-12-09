@@ -49,7 +49,7 @@ struct HTTPMockClient: HTTPClient {
 private extension Endpoint {
 
     private static var baseURL: URL {
-        URL(string: "https://raw.githubusercontent.com/adamayoung/CatNews/main/Packages/CatNewsCore/MockData")!
+        URL(string: "https://raw.githubusercontent.com/adamayoung/CatNews/main/Packages/CatNewsCore/Tests/CatNewsCoreTests/MockData")!
     }
 
     var url: URL {
