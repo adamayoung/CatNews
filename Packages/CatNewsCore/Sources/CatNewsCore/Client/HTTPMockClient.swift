@@ -6,7 +6,7 @@ struct HTTPMockClient: HTTPClient {
     private let urlSession: URLSession
     private let jsonDecoder: JSONDecoder
 
-    init(urlSession: URLSession = .shared, jsonDecoder: JSONDecoder = .catNews) {
+    init(urlSession: URLSession = URLSession(configuration: .ephemeral), jsonDecoder: JSONDecoder = .catNews) {
         self.urlSession = urlSession
         self.jsonDecoder = jsonDecoder
     }
