@@ -65,6 +65,12 @@ extension StoryDetailViewController {
             return
         }
 
+        view.subviews.forEach { subview in
+            if subview is ErrorView {
+                subview.removeFromSuperview()
+            }
+        }
+
         isLoading(true)
         viewModel.fetch { [weak self] in
             guard let self = self else {
@@ -72,6 +78,11 @@ extension StoryDetailViewController {
             }
 
             self.isLoading(false)
+
+            if let error = self.viewModel.fetchError {
+                self.displayError(error)
+                return
+            }
 
             if let story = self.viewModel.story {
                 self.updateUI(with: story)
@@ -82,6 +93,34 @@ extension StoryDetailViewController {
     private func updateUI(with storyViewModel: StoryViewModeling) {
         title = storyViewModel.headline
         storyView.viewModel = storyViewModel
+    }
+
+    private func displayError(_ error: Error) {
+        let errorView: ErrorView = {
+            if error is StoryDetailViewModel.StoryNotFoundError {
+                return ErrorView(
+                    title: NSLocalizedString("Not found", comment: "Not found"),
+                    message: NSLocalizedString("Looks like a cat has made off with this story",
+                                               comment: "Looks like a cat has made off with this story")
+                )
+            }
+
+            return ErrorView(
+                title: NSLocalizedString("What a CATastrophe", comment: "What a CATastrophe"),
+                message: NSLocalizedString("There's been a problem fetching this news article",
+                                           comment: "There's been a problem fetching this news article"),
+                retryHandler: fetchStory
+            )
+        }()
+
+        view.addSubview(errorView)
+        errorView.translatesAutoresizingMaskIntoConstraints = false
+        view.addConstraints([
+            errorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            errorView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            errorView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            errorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 
     private func isLoading(_ loading: Bool) {
@@ -103,7 +142,7 @@ extension StoryDetailViewController {
             loadingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             loadingView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             loadingView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            loadingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            loadingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 

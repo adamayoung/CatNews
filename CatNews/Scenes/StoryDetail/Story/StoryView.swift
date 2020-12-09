@@ -83,11 +83,6 @@ extension StoryView {
                 ])
             }
         }
-//
-//        stackView.needsUpdateConstraints()
-//        stackView.setNeedsLayout()
-//        stackView.layoutIfNeeded()
-//        stackView.updateConstraints()
     }
 
 }

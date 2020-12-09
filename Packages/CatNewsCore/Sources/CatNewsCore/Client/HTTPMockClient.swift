@@ -1,4 +1,5 @@
 import Foundation
+import os.log
 
 struct HTTPMockClient: HTTPClient {
 
@@ -11,15 +12,24 @@ struct HTTPMockClient: HTTPClient {
     }
 
     func get<Response: Decodable>(_ endpoint: Endpoint, completion: @escaping (Result<Response, Error>) -> Void) {
-        let request = URLRequest(url: endpoint.url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
-
-        urlSession.dataTask(with: request) { (data, _, error) in
+        let url = endpoint.url
+        let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10.0)
+        os_log("GET %@", log: .api, url.absoluteString)
+        urlSession.dataTask(with: request) { (data, response, error) in
             if let error = error {
+                os_log("Error: GET %@ - %@", log: .api, type: .error, url.absoluteString, error.localizedDescription)
                 completion(.failure(error))
                 return
             }
 
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 404 {
+                os_log("Not found: GET %@", log: .api, type: .error, url.absoluteString)
+                completion(.failure(NotFoundError()))
+                return
+            }
+
             guard let data = data else {
+                os_log("Not found: GET %@ - not response data", log: .api, type: .error, url.absoluteString)
                 completion(.failure(NotFoundError()))
                 return
             }
@@ -28,6 +38,7 @@ struct HTTPMockClient: HTTPClient {
                 let result = try jsonDecoder.decode(Response.self, from: data)
                 completion(.success(result))
             } catch let error {
+                os_log("Error: GET %@ - %@", log: .api, type: .error, url.absoluteString, error.localizedDescription)
                 completion(.failure(error))
             }
         }.resume()

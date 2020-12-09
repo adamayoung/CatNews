@@ -36,11 +36,14 @@ final class ErrorView: UIView {
         return button
     }()
 
-    private let retryHandler: () -> Void
+    private let retryHandler: (() -> Void)?
 
-    init(title: String, message: String, retryHandler: @escaping () -> Void) {
+    init(title: String, message: String, retryHandler: (() -> Void)? = nil) {
         self.retryHandler = retryHandler
         super.init(frame: .zero)
+
+        container.layoutMargins.left *= 5
+        container.layoutMargins.right *= 5
 
         addSubview(container)
         container.translatesAutoresizingMaskIntoConstraints = false
@@ -66,13 +69,19 @@ final class ErrorView: UIView {
             messageLabel.trailingAnchor.constraint(equalTo: container.layoutMarginsGuide.trailingAnchor)
         ])
 
-        container.addSubview(retryButton)
-        retryButton.translatesAutoresizingMaskIntoConstraints = false
-        container.addConstraints([
-            retryButton.topAnchor.constraint(equalToSystemSpacingBelow: messageLabel.bottomAnchor, multiplier: 3),
-            retryButton.centerXAnchor.constraint(equalTo: container.centerXAnchor),
-            retryButton.bottomAnchor.constraint(equalTo: container.layoutMarginsGuide.bottomAnchor)
-        ])
+        if retryHandler != nil {
+            container.addSubview(retryButton)
+            retryButton.translatesAutoresizingMaskIntoConstraints = false
+            container.addConstraints([
+                retryButton.topAnchor.constraint(equalToSystemSpacingBelow: messageLabel.bottomAnchor, multiplier: 3),
+                retryButton.centerXAnchor.constraint(equalTo: container.centerXAnchor),
+                retryButton.bottomAnchor.constraint(equalTo: container.layoutMarginsGuide.bottomAnchor)
+            ])
+        } else {
+            container.addConstraints([
+                messageLabel.bottomAnchor.constraint(equalTo: container.layoutMarginsGuide.bottomAnchor)
+            ])
+        }
 
         titleLabel.text = title
         messageLabel.text = message
@@ -84,7 +93,7 @@ final class ErrorView: UIView {
 
     @objc
     private func retryAction(sender: Any) {
-        retryHandler()
+        retryHandler?()
     }
 
 }

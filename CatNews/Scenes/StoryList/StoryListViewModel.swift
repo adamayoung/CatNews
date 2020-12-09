@@ -37,7 +37,7 @@ final class StoryListViewModel: StoryListViewModeling {
     }
 
     func fetch(completion: @escaping () -> Void) {
-        os_log("Fetching Stories...", log: .app)
+        os_log("Fetching stories...", log: .app)
 
         fetchError = nil
 
@@ -49,8 +49,11 @@ final class StoryListViewModel: StoryListViewModeling {
             }
 
             do {
-                self?.didFetch(storyCollection: try result.get())
+                let storyCollection = try result.get()
+                self?.didFetch(storyCollection: storyCollection)
+                os_log("Fetched %d stories", log: .app, storyCollection.data.count)
             } catch let error {
+                os_log("Error fetching stories: %@", log: .app, type: .error, error.localizedDescription)
                 self?.fetchError = error
             }
         }
@@ -80,7 +83,6 @@ final class StoryListViewModel: StoryListViewModeling {
 extension StoryListViewModel {
 
     private func didFetch(storyCollection: StoryCollection) {
-        os_log("Stories fetched", log: .app)
         self.title = storyCollection.title
         self.items = storyCollection.data.map(StoryListItemViewModel.init)
     }

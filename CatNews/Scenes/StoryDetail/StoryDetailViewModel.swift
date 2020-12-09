@@ -46,15 +46,18 @@ final class StoryDetailViewModel: StoryDetailViewModeling {
                 }
             }
 
-            os_log("Fetched story %@", log: .app, self.storyID)
+
 
             do {
                 guard let story = try result.get() else {
+                    os_log("Story %@ not found", log: .app, type: .error, self.storyID)
                     throw StoryNotFoundError()
                 }
 
+                os_log("Fetched story %@", log: .app, self.storyID)
                 self.story = StoryViewModel(story: story)
             } catch let error {
+                os_log("Error fetching story %@: %@", log: .app, type: .error, self.storyID, error.localizedDescription)
                 self.fetchError = error
             }
         }

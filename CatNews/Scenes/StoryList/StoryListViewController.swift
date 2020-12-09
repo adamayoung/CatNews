@@ -142,7 +142,8 @@ extension StoryListViewController {
 
 extension StoryListViewController {
 
-    private func fetchStories() {
+    @objc
+    private func fetchStories(_ sender: Any? = nil) {
         isLoading(true)
 
         viewModel.fetch { [weak self] in
@@ -165,12 +166,15 @@ extension StoryListViewController {
         if !loading {
             tableView.separatorColor = .separator
             tableView.backgroundView = nil
+            tableView.refreshControl?.endRefreshing()
             return
         }
 
         if viewModel.items == nil {
             tableView.separatorColor = .clear
             tableView.backgroundView = LoadingView(message: NSLocalizedString("Loading", comment: "Loading"))
+        } else {
+            tableView.refreshControl?.beginRefreshing()
         }
     }
 
@@ -179,16 +183,23 @@ extension StoryListViewController {
         self.title = self.viewModel.title
         tableView.invalidateIntrinsicContentSize()
         tableView.reloadData()
+
+        if tableView.refreshControl == nil {
+            tableView.refreshControl = UIRefreshControl()
+            tableView.refreshControl?.addTarget(self, action: #selector(fetchStories(_ :)), for: .valueChanged)
+        }
     }
 
     private func displayError(_ error: Error) {
-        let view = ErrorView(
+        let errorView = ErrorView(
             title: NSLocalizedString("What a CATastrophe", comment: "What a CATastrophe"),
             message: NSLocalizedString("There's been a problem fetching the latest news articles",
                                        comment: "There's been a problem fetching the latest news articles"),
-            retryHandler: fetchStories
+            retryHandler: { [weak self] in
+                self?.fetchStories()
+            }
         )
-        tableView.backgroundView = view
+        tableView.backgroundView = errorView
         tableView.separatorColor = .clear
     }
 
