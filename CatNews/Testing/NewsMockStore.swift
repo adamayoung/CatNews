@@ -14,7 +14,7 @@ final class MockNewsStore: NewsStore {
 
     func fetchStoryCollection(completion: @escaping (Result<StoryCollection, Error>) -> Void) {
         DispatchQueue.main.async {
-            completion(.success(mockStoryCollection))
+            completion(.success(StoryCollection.mock))
         }
     }
 
@@ -22,10 +22,10 @@ final class MockNewsStore: NewsStore {
         DispatchQueue.main.async {
             switch id {
             case "1":
-                completion(.success(mockStory1))
+                completion(.success(Story.mock1))
 
             case "3":
-                completion(.success(mockStory3))
+                completion(.success(Story.mock3))
 
             default:
                 completion(.success(nil))

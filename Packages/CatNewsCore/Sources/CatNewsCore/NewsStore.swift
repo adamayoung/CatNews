@@ -1,3 +1,5 @@
+import Foundation
+
 public protocol NewsStore {
 
     func fetchStoryCollection(completion: @escaping (Result<StoryCollection, Error>) -> Void)

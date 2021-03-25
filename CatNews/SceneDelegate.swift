@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         let window = UIWindow(windowScene: windowScene)
-        let navigationController = UINavigationController()
+        let navigationController: NavigationControlling = diContainer.resolve()
         let rootCoordinator: RootCoordinating = diContainer.resolve(navigationController: navigationController)
 
         window.rootViewController = navigationController

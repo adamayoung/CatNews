@@ -11,12 +11,16 @@ import UIKit
 class DIContainer {
 
     init() { }
+    
+    func resolve() -> NavigationControlling {
+        UINavigationController()
+    }
 
-    func resolve(navigationController: UINavigationController) -> RootCoordinating {
+    func resolve(navigationController: NavigationControlling) -> RootCoordinating {
         RootCoordinator(navigationController: navigationController, diContainer: self)
     }
 
-    func resolve() -> StoryListViewController {
+    func resolve() -> StoryListViewControlling {
         StoryListViewController(viewModel: resolve())
     }
 
@@ -24,7 +28,7 @@ class DIContainer {
         StoryListViewModel(newsStore: resolve())
     }
 
-    func resolve(storyID: String) -> StoryDetailViewController {
+    func resolve(storyID: String) -> StoryDetailViewControlling {
         StoryDetailViewController(viewModel: resolve(storyID: storyID))
     }
 

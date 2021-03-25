@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49D50BF3260C7D4400C47ECF /* StoryListViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D50BF2260C7D4400C47ECF /* StoryListViewControllerDelegate.swift */; };
+		49D50BFB260C7F8B00C47ECF /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D50BFA260C7F8B00C47ECF /* NavigationController.swift */; };
 		6F1509FE257ED89F00CD5AF6 /* CatNewsCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6F1509FD257ED89F00CD5AF6 /* CatNewsCore */; };
 		6F21526B2580DCBF00C3AF26 /* MockDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21526A2580DCBF00C3AF26 /* MockDIContainer.swift */; };
 		6F2152702580DD2700C3AF26 /* NewsMockStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F21526F2580DD2700C3AF26 /* NewsMockStore.swift */; };
@@ -92,6 +94,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		49D50BF2260C7D4400C47ECF /* StoryListViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryListViewControllerDelegate.swift; sourceTree = "<group>"; };
+		49D50BFA260C7F8B00C47ECF /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		6F1509EC257EC64F00CD5AF6 /* CatNewsCore */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CatNewsCore; sourceTree = "<group>"; };
 		6F21526A2580DCBF00C3AF26 /* MockDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDIContainer.swift; sourceTree = "<group>"; };
 		6F21526F2580DD2700C3AF26 /* NewsMockStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsMockStore.swift; sourceTree = "<group>"; };
@@ -191,6 +195,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		49D07D37260C8239000C08FC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6FE13152257F944D00191D2A /* Story */,
+				6FE13166257F986C00191D2A /* StoryHeader */,
+				6FE1317A257FA47900191D2A /* StorySubheader */,
+				6FE13153257F946000191D2A /* StoryParagraph */,
+				6FE13154257F95E900191D2A /* StoryImage */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		49D50BED260C7CA500C47ECF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6F4397D2257EDA5A0093E11E /* StoryListViewModel.swift */,
+				6F7A223D257EF664003BD6DE /* StoryListItemViewModel.swift */,
+				6F7A226D257EFA3E003BD6DE /* StoryListItemViewModel+StoryCollectionItem.swift */,
+				6F7A221F257EE8D0003BD6DE /* StoryListStoryViewModel.swift */,
+				6F7A2224257EE9BF003BD6DE /* StoryListStoryViewModel+StoryCollectionStory.swift */,
+				6F7A225D257EF99C003BD6DE /* StoryListWeblinkViewModel.swift */,
+				6F7A2278257EFB03003BD6DE /* StoryListWeblinkViewModel+StoryCollectionWeblink.swift */,
+				6F7A2265257EF9CF003BD6DE /* StoryListAdvertViewModel.swift */,
+				6F7A2280257EFB4B003BD6DE /* StoryListAdvertViewModel+StoryCollectionAdvert.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		49D50BEE260C7CD400C47ECF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				6F7A2238257EEF2B003BD6DE /* StoryDetailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		6F1509DF257EC62000CD5AF6 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +251,7 @@
 			children = (
 				6F7A21F2257EDEC8003BD6DE /* Coordinating.swift */,
 				6F7A21FA257EDEEA003BD6DE /* RootCoordinator.swift */,
+				49D50BFA260C7F8B00C47ECF /* NavigationController.swift */,
 				6F150A06257ED99C00CD5AF6 /* StoryList */,
 				6F7A222A257EED55003BD6DE /* StoryDetail */,
 			);
@@ -221,15 +262,8 @@
 			isa = PBXGroup;
 			children = (
 				6FD9148E257EB85100D9765A /* StoryListViewController.swift */,
-				6F4397D2257EDA5A0093E11E /* StoryListViewModel.swift */,
-				6F7A223D257EF664003BD6DE /* StoryListItemViewModel.swift */,
-				6F7A226D257EFA3E003BD6DE /* StoryListItemViewModel+StoryCollectionItem.swift */,
-				6F7A221F257EE8D0003BD6DE /* StoryListStoryViewModel.swift */,
-				6F7A2224257EE9BF003BD6DE /* StoryListStoryViewModel+StoryCollectionStory.swift */,
-				6F7A225D257EF99C003BD6DE /* StoryListWeblinkViewModel.swift */,
-				6F7A2278257EFB03003BD6DE /* StoryListWeblinkViewModel+StoryCollectionWeblink.swift */,
-				6F7A2265257EF9CF003BD6DE /* StoryListAdvertViewModel.swift */,
-				6F7A2280257EFB4B003BD6DE /* StoryListAdvertViewModel+StoryCollectionAdvert.swift */,
+				49D50BF2260C7D4400C47ECF /* StoryListViewControllerDelegate.swift */,
+				49D50BED260C7CA500C47ECF /* ViewModels */,
 				6F7A2229257EED0D003BD6DE /* Cells */,
 			);
 			path = StoryList;
@@ -261,8 +295,8 @@
 			isa = PBXGroup;
 			children = (
 				6F7A222B257EED73003BD6DE /* StoryDetailViewController.swift */,
-				6F7A2238257EEF2B003BD6DE /* StoryDetailViewModel.swift */,
-				6FE13152257F944D00191D2A /* Story */,
+				49D50BEE260C7CD400C47ECF /* ViewModels */,
+				49D07D37260C8239000C08FC /* Views */,
 			);
 			path = StoryDetail;
 			sourceTree = "<group>";
@@ -412,10 +446,6 @@
 				6F7C3E0F257F8ADD0022506F /* StoryViewModel+Story.swift */,
 				6F7C3DF5257F88E70022506F /* StoryContentItem.swift */,
 				6F7C3E17257F8B4A0022506F /* StoryContentItem+StoryContent.swift */,
-				6FE13166257F986C00191D2A /* StoryHeader */,
-				6FE1317A257FA47900191D2A /* StorySubheader */,
-				6FE13153257F946000191D2A /* StoryParagraph */,
-				6FE13154257F95E900191D2A /* StoryImage */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -626,6 +656,7 @@
 				6FE1318A257FAAD000191D2A /* LoadingView.swift in Sources */,
 				6FD9148F257EB85100D9765A /* StoryListViewController.swift in Sources */,
 				6F7A21F3257EDEC8003BD6DE /* Coordinating.swift in Sources */,
+				49D50BFB260C7F8B00C47ECF /* NavigationController.swift in Sources */,
 				6FE13170257F991400191D2A /* StoryHeaderViewModel.swift in Sources */,
 				6FE13192257FAD0700191D2A /* ErrorView.swift in Sources */,
 				6FD9148B257EB85100D9765A /* AppDelegate.swift in Sources */,
@@ -655,6 +686,7 @@
 				6F21526B2580DCBF00C3AF26 /* MockDIContainer.swift in Sources */,
 				6F7A221B257EE364003BD6DE /* StoryTableViewCell.swift in Sources */,
 				6F7A223E257EF664003BD6DE /* StoryListItemViewModel.swift in Sources */,
+				49D50BF3260C7D4400C47ECF /* StoryListViewControllerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

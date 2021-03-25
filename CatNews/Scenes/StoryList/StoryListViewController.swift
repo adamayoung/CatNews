@@ -8,15 +8,16 @@
 import CatNewsCore
 import UIKit
 
-protocol StoryListViewControllerDelegate: class {
+protocol StoryListViewable: class {
 
-    func viewController(_ viewController: StoryListViewController, wantsToViewStory storyID: String)
-
-    func viewController(_ viewController: StoryListViewController, wantsToViewWeblink url: URL)
+    var delegate: StoryListViewControllerDelegate? { get set }
 
 }
 
-final class StoryListViewController: UITableViewController {
+typealias StoryListViewControlling = UIViewController & StoryListViewable
+
+
+final class StoryListViewController: UITableViewController, StoryListViewable {
 
     weak var delegate: StoryListViewControllerDelegate?
 
