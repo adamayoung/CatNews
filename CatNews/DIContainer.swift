@@ -11,7 +11,7 @@ import UIKit
 class DIContainer {
 
     init() { }
-    
+
     func resolve() -> NavigationControlling {
         UINavigationController()
     }

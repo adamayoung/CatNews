@@ -16,7 +16,6 @@ protocol StoryListViewable: class {
 
 typealias StoryListViewControlling = UIViewController & StoryListViewable
 
-
 final class StoryListViewController: UITableViewController, StoryListViewable {
 
     weak var delegate: StoryListViewControllerDelegate?

@@ -9,7 +9,7 @@ import CatNewsCore
 import Foundation
 
 extension StoryCollection {
-    
+
     static var mock: StoryCollection {
         .init(
             title: "Mock Cat News",
@@ -21,11 +21,11 @@ extension StoryCollection {
             ]
         )
     }
-    
+
 }
 
 extension StoryCollectionStory {
-    
+
     static var mock1: StoryCollectionStory {
         .init(
             id: "1",
@@ -45,7 +45,7 @@ extension StoryCollectionStory {
             )
         )
     }
-    
+
     static var mock3: StoryCollectionStory {
         .init(
             id: "3",
@@ -65,11 +65,11 @@ extension StoryCollectionStory {
             )
         )
     }
-    
+
 }
 
 extension StoryCollectionWeblink {
-    
+
     static var mock: StoryCollectionWeblink {
         .init(
             id: "2",
@@ -89,16 +89,16 @@ extension StoryCollectionWeblink {
             )
         )
     }
-    
+
 }
 
 extension StoryCollectionAdvert {
-    
+
     static var mock: StoryCollectionAdvert {
         .init(
             url: URL(string: "https://some.domain.com/advert.jpg")!
         )
 
     }
-    
+
 }

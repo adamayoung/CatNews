@@ -12,7 +12,6 @@ protocol StoryDetailViewable: class { }
 
 typealias StoryDetailViewControlling = UIViewController & StoryDetailViewable
 
-
 final class StoryDetailViewController: UIViewController, StoryDetailViewable {
 
     private let viewModel: StoryDetailViewModeling
