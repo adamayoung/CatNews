@@ -12,13 +12,14 @@ import XCTest
 class StoryContentItemTests: XCTestCase {
 
     func testInitWithParagraphContent() {
-        let content = StoryContent.paragraph(mockParagraph1)
+        let paragraph = StoryParagraph.mock1
+        let content = StoryContent.paragraph(paragraph)
 
         let item = StoryContentItem(content: content)
 
         switch item {
         case .paragraph(let result):
-            XCTAssertEqual(result.text, mockParagraph1.text)
+            XCTAssertEqual(result.text, paragraph.text)
 
         default:
             XCTFail("Should have created a paragraph StoryContentItem")
@@ -26,14 +27,15 @@ class StoryContentItemTests: XCTestCase {
     }
 
     func testInitWithImageContent() {
-        let content = StoryContent.image(mockImage1)
+        let image = StoryImage.mock1
+        let content = StoryContent.image(image)
 
         let item = StoryContentItem(content: content)
 
         switch item {
         case .image(let result):
-            XCTAssertEqual(result.url, mockImage1.url)
-            XCTAssertEqual(result.accessibilityText, mockImage1.accessibilityText)
+            XCTAssertEqual(result.url, image.url)
+            XCTAssertEqual(result.accessibilityText, image.accessibilityText)
 
         default:
             XCTFail("Should have created an image StoryContentItem")

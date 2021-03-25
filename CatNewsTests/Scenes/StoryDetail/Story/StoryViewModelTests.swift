@@ -12,15 +12,16 @@ import XCTest
 class StoryViewModelTests: XCTestCase {
 
     func testInitWithStory() {
-        let viewModel = StoryViewModel(story: mockStory)
+        let story = Story.mock1
+        let viewModel = StoryViewModel(story: story)
 
-        XCTAssertEqual(viewModel.id, mockStory.id)
-        XCTAssertEqual(viewModel.headline, mockStory.headline)
-        XCTAssertEqual(viewModel.heroImageURL, mockStory.heroImage.imageUrl)
-        XCTAssertEqual(viewModel.heroImageAccessibilityText, mockStory.heroImage.accessibilityText)
-        XCTAssertEqual(viewModel.creationDate, mockStory.creationDate)
-        XCTAssertEqual(viewModel.modifiedDate, mockStory.modifiedDate)
-        XCTAssertEqual(viewModel.contents.count, mockStory.contents.count)
+        XCTAssertEqual(viewModel.id, story.id)
+        XCTAssertEqual(viewModel.headline, story.headline)
+        XCTAssertEqual(viewModel.heroImageURL, story.heroImage.imageUrl)
+        XCTAssertEqual(viewModel.heroImageAccessibilityText, story.heroImage.accessibilityText)
+        XCTAssertEqual(viewModel.creationDate, story.creationDate)
+        XCTAssertEqual(viewModel.modifiedDate, story.modifiedDate)
+        XCTAssertEqual(viewModel.contents.count, story.contents.count)
     }
 
 }

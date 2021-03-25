@@ -25,8 +25,9 @@ class StoryListViewModelTests: XCTestCase {
     }
 
     func testFetchWhenFetchSuccessSetsItems() {
-        newsStore.fetchStoryCollectionResult = .success(mockStoryCollection)
-        let expectedResult = mockStoryCollection.data.count
+        let storyCollection = StoryCollection.mock
+        newsStore.fetchStoryCollectionResult = .success(storyCollection)
+        let expectedResult = storyCollection.data.count
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")
         XCTAssertNil(viewModel.items)
@@ -41,8 +42,9 @@ class StoryListViewModelTests: XCTestCase {
     }
 
     func testFetchWhenFetchSuccessSetsTitle() {
-        newsStore.fetchStoryCollectionResult = .success(mockStoryCollection)
-        let expectedResult = mockStoryCollection.title
+        let storyCollection = StoryCollection.mock
+        newsStore.fetchStoryCollectionResult = .success(storyCollection)
+        let expectedResult = storyCollection.title
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")
         viewModel.fetch {
@@ -75,9 +77,10 @@ class StoryListViewModelTests: XCTestCase {
     }
 
     func testItemForIndexPathReturnsItem() {
-        newsStore.fetchStoryCollectionResult = .success(mockStoryCollection)
+        let storyCollection = StoryCollection.mock
+        newsStore.fetchStoryCollectionResult = .success(storyCollection)
         let indexPath = IndexPath(row: 0, section: 0)
-        let expectedResult = StoryListItemViewModel(item: mockStoryCollection.data[0])
+        let expectedResult = StoryListItemViewModel(item: storyCollection.data[0])
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")
         viewModel.fetch {
@@ -97,9 +100,10 @@ class StoryListViewModelTests: XCTestCase {
     }
 
     func testStoryIDForIndexPathWhenStoryReturnsStoryID() {
-        newsStore.fetchStoryCollectionResult = .success(mockStoryCollection)
+        let storyCollection = StoryCollection.mock
+        newsStore.fetchStoryCollectionResult = .success(storyCollection)
         let indexPath = IndexPath(row: 0, section: 0)
-        let expectedResult = mockStoryCollectionStory1.id
+        let expectedResult = Story.mock1.id
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")
         viewModel.fetch {
@@ -113,7 +117,8 @@ class StoryListViewModelTests: XCTestCase {
     }
 
     func testStoryIDForIndexPathWhenNotStoryReturnsNil() {
-        newsStore.fetchStoryCollectionResult = .success(mockStoryCollection)
+        let storyCollection = StoryCollection.mock
+        newsStore.fetchStoryCollectionResult = .success(storyCollection)
         let indexPath = IndexPath(row: 1, section: 0)
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")

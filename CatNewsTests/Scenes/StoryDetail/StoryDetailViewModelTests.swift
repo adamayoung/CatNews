@@ -32,7 +32,8 @@ class StoryDetailViewModelTests: XCTestCase {
     }
 
     func testFetchWHenFetchSuccessSetStory() {
-        newsStore.fetchStoryResult = .success(mockStory)
+        let story = Story.mock1
+        newsStore.fetchStoryResult = .success(story)
 
         let expectation = XCTestExpectation(description: "viewModel.fetch")
         viewModel.fetch {

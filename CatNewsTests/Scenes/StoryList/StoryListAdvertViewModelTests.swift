@@ -12,9 +12,10 @@ import XCTest
 class StoryListAdvertViewModelTests: XCTestCase {
 
     func testInitWithAdvert() throws {
-        let viewModel = StoryListAdvertViewModel(advert: mockStoryCollectionAdvert1)
+        let advert = StoryCollectionAdvert.mock
+        let viewModel = StoryListAdvertViewModel(advert: advert)
 
-        XCTAssertEqual(viewModel.url, mockStoryCollectionAdvert1.url)
+        XCTAssertEqual(viewModel.url, advert.url)
     }
 
 }

@@ -12,8 +12,9 @@ import XCTest
 class StoryListItemViewModelTests: XCTestCase {
 
     func testInitWithStoryItem() {
-        let item = StoryCollectionItem.story(mockStoryCollectionStory1)
-        let expectedResultID = mockStoryCollectionStory1.id
+        let story = StoryCollectionStory.mock1
+        let item = StoryCollectionItem.story(story)
+        let expectedResultID = story.id
 
         let viewModel = StoryListItemViewModel(item: item)
 
@@ -27,8 +28,9 @@ class StoryListItemViewModelTests: XCTestCase {
     }
 
     func testInitWithWeblinkItem() {
-        let item = StoryCollectionItem.weblink(mockStoryCollectionWeblink1)
-        let expectedResultID = mockStoryCollectionWeblink1.id
+        let weblink = StoryCollectionWeblink.mock
+        let item = StoryCollectionItem.weblink(weblink)
+        let expectedResultID = weblink.id
 
         let viewModel = StoryListItemViewModel(item: item)
 
@@ -42,8 +44,9 @@ class StoryListItemViewModelTests: XCTestCase {
     }
 
     func testInitWithAdvertItem() {
-        let item = StoryCollectionItem.advert(mockStoryCollectionAdvert1)
-        let expectedResultURL = mockStoryCollectionAdvert1.url
+        let advert = StoryCollectionAdvert.mock
+        let item = StoryCollectionItem.advert(advert)
+        let expectedResultURL = advert.url
 
         let viewModel = StoryListItemViewModel(item: item)
 
